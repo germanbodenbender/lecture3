@@ -5,13 +5,15 @@ import rhino3dm from 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/rhino3dm
 import { RhinoCompute } from 'https://cdn.jsdelivr.net/npm/compute-rhino3d@0.13.0-beta/compute.rhino3d.module.js'
 
 // reference the definition
-const definitionName = 'voronoi.gh'
+const definitionName = 'simple_one.gh'
 
 // listen for slider change events
 const count_slider = document.getElementById( 'count' )
 count_slider.addEventListener( 'input', onSliderChange, false )
 const radius_slider = document.getElementById( 'radius' )
 radius_slider.addEventListener( 'input', onSliderChange, false )
+const explode_slider = document.getElementById( 'explode' )
+explode_slider.addEventListener( 'input', onSliderChange, false )
 
 const downloadButton = document.getElementById("downloadButton")
 downloadButton.onclick = download
@@ -51,17 +53,21 @@ async function compute() {
     // get slider values
     let count = document.getElementById('count').valueAsNumber
     let radius = document.getElementById('radius').valueAsNumber
+    let explode = document.getElementById('explode').valueAsNumber
 
     // format data
     let param1 = new RhinoCompute.Grasshopper.DataTree('RH_IN:radius')
     param1.append([0], [radius])
     let param2 = new RhinoCompute.Grasshopper.DataTree('RH_IN:count')
     param2.append([0], [count])
+    let param3 = new RhinoCompute.Grasshopper.DataTree('RH_IN:explode')
+    param2.append([0], [explode])
 
     // Add all params to an array
     let trees = []
     trees.push(param1)
     trees.push(param2)
+    trees.push(param3)
 
     // Call RhinoCompute
 
@@ -107,6 +113,7 @@ function collectResults(values) {
     loader.parse( buffer, function ( object ) 
     {
         scene.add( object )
+        console.log(object)
         // hide spinner
         document.getElementById('loader').style.display = 'none'
 

@@ -9,9 +9,9 @@ const definitionName = 'rnd_node.gh'
 
 // listen for slider change events
 const count_slider = document.getElementById( 'count' )
-count_slider.addEventListener( 'input', onSliderChange, false )
+count_slider.addEventListener( 'mouseup', onSliderChange, false )
 const radius_slider = document.getElementById( 'radius' )
-radius_slider.addEventListener( 'input', onSliderChange, false )
+radius_slider.addEventListener( 'mouseup', onSliderChange, false )
 
 const downloadButton = document.getElementById("downloadButton")
 downloadButton.onclick = download
